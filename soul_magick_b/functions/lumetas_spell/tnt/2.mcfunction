@@ -1,1 +1,1 @@
-execute at @e[r=25,tag=!caster] run summon tnt
+execute at @e[r=25,tag=!caster,tag=!lumetas_emb] run summon tnt
