@@ -1,0 +1,1 @@
+execute at @e[r=25,tag=!caster] run summon evocation_fang

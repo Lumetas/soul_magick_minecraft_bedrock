@@ -1,0 +1,12 @@
+{
+	"resource_pack_name": "My Map Name",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"soul": { 
+			"textures": "textures/items/soul"
+		},
+		"lumetas.soulpicker": { 
+			"textures": "textures/items/soulpicker"
+		}
+    }
+}

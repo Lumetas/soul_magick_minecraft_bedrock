@@ -1,0 +1,18 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "soul magick",
+        "name": "soul magick",
+        "uuid": "51030bf8-2bec-4cd2-b884-6fdecbd1cf3d",
+        "version": [0, 0, 1],
+        "min_engine_version": [ 1, 20, 0 ]
+    },
+    "modules": [
+        {
+            "description": "soul",
+            "type": "resources",
+            "uuid": "1192aad9-ccea-4ee8-80e4-ade871359fd1",
+            "version": [0, 0, 1]
+        }
+    ]
+}

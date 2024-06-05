@@ -1,0 +1,32 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "this is soul magick addon",
+        "name": "soul magick",
+        "uuid": "6a513b98-780d-45fd-9c53-070e8867d7ed",
+        "version": [ 1, 0, 0 ],
+        "min_engine_version": [ 1, 19, 73 ]
+    },
+    "modules": [
+        {
+            "description": "§r",
+            "type": "data",
+            "uuid": "c57e642c-2e2d-4f19-a80b-9fc9991742ef",
+            "version": [1, 0, 0 ]
+        },
+        {
+			"description": "Gametest Module",
+			"type": "script",
+			"language": "javascript",
+			"entry": "scripts/main.js",
+			"uuid": "43c51b53-17a0-4b85-ac9d-10b3ccb60c23",
+			"version": [1, 0, 0]
+		}
+    ],
+	"dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.8.0"
+		}
+  ]
+}
