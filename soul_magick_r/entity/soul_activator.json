@@ -1,0 +1,12 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "lumetas:soul_activator",
+      "spawn_egg": {
+	  "texture": "soul.activator",
+   	  "texture_index": 0
+      }
+    }
+  }
+}

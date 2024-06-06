@@ -1,0 +1,15 @@
+{ 
+  "format_version": "1.19.30", 
+  "lumetas:ender_obs": { 
+    "textures": { 
+      "up": "end_obs_1", 
+      "down": "end_obs_1", 
+      "north": "end_obs_1", 
+      "south": "end_obs_1", 
+      "east": "end_obs_1", 
+      "west": "end_obs_1" 
+    }, 
+    "carried_textures": "end_obs_1", 
+    "sound": "stone" 
+     } 
+}

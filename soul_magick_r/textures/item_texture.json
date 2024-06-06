@@ -5,6 +5,12 @@
 		"soul": { 
 			"textures": "textures/items/soul"
 		},
+		"redstone.soul": { 
+			"textures": "textures/items/redstone_soul"
+		},
+		"soul.activator": { 
+			"textures": "textures/items/soul_activator"
+		},
 		"lumetas.soulpicker": { 
 			"textures": "textures/items/soulpicker"
 		}
