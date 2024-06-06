@@ -22,6 +22,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 
     if (func === "redstone_two"){
         let name = entity.nameTag;
+        if (name === ""){return false;}
         entity.runCommandAsync(`execute as @e[tag=${name}] at @s run function lumetas_redstone_hlop`);
 
     }
