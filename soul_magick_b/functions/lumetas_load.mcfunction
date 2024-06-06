@@ -5,9 +5,4 @@ scoreboard objectives add 4layer dummy 4layer
 scoreboard objectives add 5layer dummy 5layer
 scoreboard objectives add plusfunc dummy plusfunc
 
-scoreboard players set @a 1layer 0
-scoreboard players set @a 2layer 0
-scoreboard players set @a 3layer 0
-scoreboard players set @a 4layer 0
-scoreboard players set @a 5layer 0
-scoreboard players set @a plusfunc 0
+execute as @a at @s run function lumetas_null
