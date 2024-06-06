@@ -1,2 +1,6 @@
 item.lumetas:soul_picker=Soul Picker
 item.spawn_egg.entity.lumetas:soul.name=Soul
+item.spawn_egg.entity.lumetas:redstone_soul.name=Redstone Soul
+item.spawn_egg.entity.lumetas:soul_activator.name=Soul Activator
+tile.lumetas:ender_obs.name=Ender Obsidian
+entity.lumetas:redstone_soul.name=Redstone Soul
