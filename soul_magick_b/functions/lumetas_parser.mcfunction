@@ -102,8 +102,9 @@ execute if block ~-1 ~1 ~-2 lumetas:ender_obs run scoreboard players add @p 5lay
 
 
 
-execute if entity @p[scores={4layer=0}, r=100] if entity @p[scores={5layer=0}] run fill ~-3 ~ ~-3 ~3 ~ ~3 air replace bone_block
-execute if entity @p[scores={4layer=0}, r=100] if entity @p[scores={5layer=0}] run execute as @p at @s run function lumetas_spell_parser
-execute if entity @p[scores={4layer=1..}, r=20] run execute as @p at @s run function lumetas_plus_spell_parser
-execute if entity @p[scores={5layer=1..}, r=20] run execute as @p at @s run function lumetas_plus_spell_parser
+execute if entity @p[scores={4layer=1..}, r=20] run execute as @p[r=20] at @s run function lumetas_plus_spell_parser
+execute if entity @p[scores={5layer=1..}, r=20] run execute as @p[r=20] at @s run function lumetas_plus_spell_parser
+execute if entity @p[scores={4layer=0}, r=100] if entity @p[scores={5layer=0}, r=100] run fill ~-3 ~ ~-3 ~3 ~ ~3 air replace bone_block
+execute if entity @p[scores={4layer=0}, r=100] if entity @p[scores={5layer=0}, r=100] run execute as @p[r=100] at @s run function lumetas_spell_parser
+
 kill

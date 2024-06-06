@@ -20,4 +20,3 @@ execute if entity @s[scores={1layer=5}] run function lumetas_spell/effect/1
 
 
 tag @s remove caster
-function lumetas_null
