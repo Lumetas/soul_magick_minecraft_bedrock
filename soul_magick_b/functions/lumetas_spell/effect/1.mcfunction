@@ -8,4 +8,3 @@ execute if entity @s[scores={2layer=7}] run function lumetas_spell/effect/streng
 execute if entity @s[scores={2layer=8}] if entity @s[scores={3layer=25}] run effect @s invisibility 60 3 true
 execute if entity @s[scores={2layer=9}] if entity @s[scores={3layer=10..25}] run effect @s levitation 1 40 true
 execute if entity @s[scores={2layer=10}] run function lumetas_spell/effect/resistance
-execute if entity @s[scores={2layer=11}] if entity @s[scores={3layer=5..}] run effect @s clear
