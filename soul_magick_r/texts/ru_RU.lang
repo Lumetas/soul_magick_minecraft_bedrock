@@ -4,3 +4,6 @@ item.spawn_egg.entity.lumetas:redstone_soul.name=Душа редстоуна
 item.spawn_egg.entity.lumetas:soul_activator.name=Душный активатор
 tile.lumetas:ender_obs.name=Обсидиан края
 entity.lumetas:redstone_soul.name=Душа редстоуна
+item.lumetas:bone_spear=Костянное копьё
+item.lumetas:bone_pickaxe=Костянная кирка
+item.lumetas:bone_axe=Костянной топор

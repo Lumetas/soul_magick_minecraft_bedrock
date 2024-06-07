@@ -13,6 +13,15 @@
 		},
 		"lumetas.soulpicker": { 
 			"textures": "textures/items/soulpicker"
+		},
+		"lumetas.bone.axe": { 
+			"textures": "textures/items/axe"
+		},
+		"lumetas.bone.pickaxe": { 
+			"textures": "textures/items/pickaxe"
+		},
+		"lumetas.bone.spear": { 
+			"textures": "textures/items/spear"
 		}
     }
 }

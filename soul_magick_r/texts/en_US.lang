@@ -4,3 +4,7 @@ item.spawn_egg.entity.lumetas:redstone_soul.name=Redstone Soul
 item.spawn_egg.entity.lumetas:soul_activator.name=Soul Activator
 tile.lumetas:ender_obs.name=Ender Obsidian
 entity.lumetas:redstone_soul.name=Redstone Soul
+item.lumetas:bone_spear=Bone Spear
+item.lumetas:bone_pickaxe=Bone Pickaxe
+item.lumetas:bone_axe=Bone Axe
+
