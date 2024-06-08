@@ -34,6 +34,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 
 world.afterEvents.entityDie.subscribe(function(data){
     const dead = data.deadEntity;
+    if (dead.typeId === "lumetas:antimage"){return false;}
     const source = data.damageSource;
     if (source.damagingEntity !== null && source.damagingEntity !== undefined){
         source.damagingEntity.runCommandAsync(`execute if entity @s[hasitem={item=lumetas:soul_picker}] run give @s lumetas:soul_spawn_egg`);

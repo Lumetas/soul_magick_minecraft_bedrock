@@ -22,6 +22,9 @@
 		},
 		"lumetas.bone.spear": { 
 			"textures": "textures/items/spear"
+		},
+		"antimage":{
+			"textures": "textures/items/antimage"
 		}
     }
 }

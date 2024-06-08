@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "lumetas:antimage",
+      "spawn_egg": {
+	  "texture": "antimage",
+   	  "texture_index": 0
+      },
+      "min_engine_version": "1.10.0",
+	"geometry": {
+        "default": "geometry.antimage"
+      },
+      "textures": {
+        "default": "textures/entity/antimage"
+      },
+      "enable_attachables": true
+    }
+  }
+}

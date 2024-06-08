@@ -5,3 +5,6 @@ tag @e[type=xp_orb] add lumetas_emb
 tag @e[type=lumetas:redstone_soul] add lumetas_emb
 tag @e[type=lumetas:soul_activator] add lumetas_emb
 tag @e[type=lumetas:support] add lumetas_emb
+tag @e[type=evocation_fang] add lumetas_emb
+tag @e[type=lightning_bolt] add lumetas_emb
+tag @e[type=lumetas:antimage] add lumetas_emb
