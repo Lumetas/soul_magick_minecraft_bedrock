@@ -38,14 +38,12 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
     }
 
     if (func === "mark2"){
-
         entity.setDynamicProperty('lumetas_mark', event.message);
     }
 
     if (func === "mark3"){
         if (entity.getDynamicProperty('lumetas_mark') === undefined){return false;}   
         entity.runCommandAsync(`tp @s ${entity.getDynamicProperty('lumetas_mark')}`);
-        world.sendMessage('3');
     }
 
 
