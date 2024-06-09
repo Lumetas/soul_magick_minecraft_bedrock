@@ -8,4 +8,4 @@ execute if entity @s[scores={4layer=1..}] run scoreboard players add @s plusfunc
 execute if entity @s[scores={5layer=1.., plusfunc=0}] run function lumetas_plus_spell_parser
 scoreboard players set @s plusfunc 0
 
-execute at @e[type=lumetas:soul, r=75, tag=casted] run function lumetas_soul_particle
+execute if entity @s[scores={1layer=1..}] run execute at @e[type=lumetas:soul, r=75, tag=casted] run function lumetas_soul_particle

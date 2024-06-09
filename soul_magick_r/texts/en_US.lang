@@ -7,4 +7,5 @@ entity.lumetas:redstone_soul.name=Redstone Soul
 item.lumetas:bone_spear=Bone Spear
 item.lumetas:bone_pickaxe=Bone Pickaxe
 item.lumetas:bone_axe=Bone Axe
-
+item.spawn_egg.entity.lumetas:antimage.name=Antimagic Shield
+entity.lumetas:antimage.name=Antimagic Shield

@@ -1,0 +1,2 @@
+execute if entity @s[scores={2layer=1, 3layer=25}] run execute as @e[type=lumetas:soul, r=75, tag=casted] at @s run scriptevent lumetas:mark1
+execute if entity @s[scores={2layer=2, 3layer=25}] run scriptevent lumetas:mark3

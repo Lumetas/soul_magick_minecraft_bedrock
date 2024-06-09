@@ -14,10 +14,16 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
     let entity = event.sourceEntity;
     
     if (func === "redstone_one"){
-        let redstone_id = `L${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}`
-        entity.runCommandAsync('tag @s add ' + redstone_id);
-        entity.runCommandAsync('tag @s add done');
-        entity.runCommandAsync('tell @p id этого блока: ' + redstone_id);
+        if (entity.nameTag === ""){
+            let redstone_id = `L${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}`
+            entity.runCommandAsync('tag @s add ' + redstone_id);
+            entity.runCommandAsync('tag @s add done');
+            entity.runCommandAsync('tell @p id этого блока: ' + redstone_id);
+        }
+        else {
+            entity.runCommandAsync(`setblock ${entity.nameTag} redstone_block`);
+            entity.runCommandAsync('kill');
+        }
     }
 
     if (func === "redstone_two"){
@@ -27,6 +33,20 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 
     }
 
+    if (func === "mark1"){
+        entity.runCommandAsync(`execute as @p at @s run scriptevent lumetas:mark2 ${entity.location.x} ${entity.location.y} ${entity.location.z}`)
+    }
+
+    if (func === "mark2"){
+
+        entity.setDynamicProperty('lumetas_mark', event.message);
+    }
+
+    if (func === "mark3"){
+        if (entity.getDynamicProperty('lumetas_mark') === undefined){return false;}   
+        entity.runCommandAsync(`tp @s ${entity.getDynamicProperty('lumetas_mark')}`);
+        world.sendMessage('3');
+    }
 
 
 });

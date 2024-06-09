@@ -6,7 +6,7 @@ execute if entity @s[scores={1layer=1}] run function lumetas_spell/fangs/1
 execute if entity @s[scores={1layer=7}] run function lumetas_spell/break/1
 execute if entity @s[scores={1layer=5}] run function lumetas_spell/effect/1
 execute if entity @s[scores={1layer=2}] run function lumetas_spell/cold/1
-
+execute if entity @s[scores={1layer=8}] run function lumetas_spell/mark/1
 
 
 
