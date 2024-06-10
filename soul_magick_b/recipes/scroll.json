@@ -1,0 +1,27 @@
+{
+    "format_version": "1.12",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "lumetas:scroll_recipe"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "P",
+            "S"
+        ],
+        "key": {
+            "P": {
+                "item": "minecraft:paper"
+            },
+            "S": {
+                "item": "lumetas:soul_spawn_egg"
+            }
+        },
+        "result": {
+            "item": "lumetas:scroll",
+            "count": 1
+        }
+    }
+}

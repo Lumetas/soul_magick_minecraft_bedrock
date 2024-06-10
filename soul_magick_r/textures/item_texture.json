@@ -25,6 +25,9 @@
 		},
 		"antimage":{
 			"textures": "textures/items/antimage"
+		},
+		"lumetas.scroll":{
+			"textures": "textures/items/scroll"
 		}
     }
 }

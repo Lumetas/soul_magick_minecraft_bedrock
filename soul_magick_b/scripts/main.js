@@ -1,5 +1,5 @@
 import { world, system } from '@minecraft/server';
-
+import {parser} from "./scrolls"
 function randomInteger(min, max) {
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
@@ -13,6 +13,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
     let func = event.id.split(':')[1];
     let entity = event.sourceEntity;
     
+
     if (func === "redstone_one"){
         if (entity.nameTag === ""){
             let redstone_id = `L${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}`
@@ -38,6 +39,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
     }
 
     if (func === "mark2"){
+
         entity.setDynamicProperty('lumetas_mark', event.message);
     }
 
@@ -47,6 +49,13 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
     }
 
 
+    if (func === "property"){
+        //world.sendMessage('p');
+        property = event.message.split('=')[0];
+        propertyText = event.message.split('=')[1];
+
+        entity.setDynamicProperty(property, propertyText);
+    }
 });
 
 
@@ -58,3 +67,65 @@ world.afterEvents.entityDie.subscribe(function(data){
         source.damagingEntity.runCommandAsync(`execute if entity @s[hasitem={item=lumetas:soul_picker}] run give @s lumetas:soul_spawn_egg`);
     }
 })
+
+
+world.afterEvents.itemStartUse.subscribe(function (data){
+    //world.sendMessage('start');
+    const item = data.itemStack;
+    const player = data.source;
+
+    if (item.typeId === "lumetas:scroll"){
+        player.runCommandAsync(`function lumetas_scrolls/parser`);
+    }
+    //player.runCommandAsync('function lumetas_scrolls/parser')
+
+});
+
+world.afterEvents.itemStopUse.subscribe(function (data){
+    
+    const item = data.itemStack;
+    const player = data.source;
+
+    if (item.typeId === "lumetas:scroll"){
+        let scroll = item.nameTag;
+        if (scroll === ''){return false;}
+        let layer1 = getScore(player, "1layer");
+        let layer2 = getScore(player, "2layer");
+        let layer3 = getScore(player, "3layer");
+        
+
+        let spell = [scroll, layer1, layer2, layer3];
+        world.sendMessage(JSON.stringify(spell));
+        player.setDynamicProperty(`scroll-${scroll}`, JSON.stringify(spell));
+    }
+
+
+
+});
+
+world.afterEvents.itemCompleteUse.subscribe(function (data){
+    
+
+    const item = data.itemStack;
+    const player = data.source;
+
+    if (item.typeId === "lumetas:scroll"){
+        let spell = player.getDynamicProperty(`scroll-${item.nameTag}`);
+        spell = JSON.parse(spell);
+        setScore(player, "1layer", spell[1]);
+        setScore(player, "2layer", spell[2]);
+        setScore(player, "3layer", spell[3]);
+        player.setDynamicProperty(`scroll-${item.nameTag}`, '');
+        player.runCommandAsync('function lumetas_spell_parser');
+
+    }
+});
+
+function getScore(player, objective){
+    return world.scoreboard.getObjective(objective).getScore(player);
+}
+
+function setScore(player, objective, score){
+    try {world.scoreboard.getObjective(objective).setScore(player, score);}
+    catch(e){player.runCommandAsync(`scoreboard players set @s ${objective} ${score}`)}
+}

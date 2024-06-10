@@ -1,0 +1,35 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:item": {
+      "description": {
+        "identifier": "lumetas:scroll",
+        "category": "nature"
+      },
+  
+      "components": {
+              "minecraft:icon": {
+                  "texture": "lumetas.scroll"
+              },
+        "minecraft:display_name":{
+          "value": "item.scroll.name"
+        },
+        "minecraft:tags": {
+          "tags": [
+            "minecraft:is_food"
+          ]
+        },
+        "minecraft:use_animation": "eat",
+        "minecraft:use_modifiers": {
+          "use_duration": 1.6,
+          "movement_modifier": 0.35
+        },
+        "minecraft:food": {
+          "can_always_eat": false,
+          "nutrition": 0,
+          "saturation_modifier": 0
+        },
+        "minecraft:allow_off_hand":true,
+        "minecraft:stacked_by_data":false
+      }
+    }
+  }
