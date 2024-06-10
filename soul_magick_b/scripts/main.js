@@ -94,6 +94,7 @@ world.afterEvents.itemStopUse.subscribe(function (data){
         
 
         let spell = [scroll, layer1, layer2, layer3];
+        player.runCommandAsync(`title @s actionbar spell:${scroll}, layers:[${layer1}, ${layer2}, ${layer3}]`);
         //world.sendMessage(JSON.stringify(spell));
         player.setDynamicProperty(`scroll-${scroll}`, JSON.stringify(spell));
     }
