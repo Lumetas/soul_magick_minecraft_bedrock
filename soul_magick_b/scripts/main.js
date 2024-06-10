@@ -88,14 +88,13 @@ world.afterEvents.itemStopUse.subscribe(function (data){
 
     if (item.typeId === "lumetas:scroll"){
         let scroll = item.nameTag;
-        if (scroll === ''){return false;}
         let layer1 = getScore(player, "1layer");
         let layer2 = getScore(player, "2layer");
         let layer3 = getScore(player, "3layer");
         
 
         let spell = [scroll, layer1, layer2, layer3];
-        world.sendMessage(JSON.stringify(spell));
+        //world.sendMessage(JSON.stringify(spell));
         player.setDynamicProperty(`scroll-${scroll}`, JSON.stringify(spell));
     }
 
