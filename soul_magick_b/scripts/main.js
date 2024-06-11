@@ -1,5 +1,4 @@
 import { world, system } from '@minecraft/server';
-import {parser} from "./scrolls"
 function randomInteger(min, max) {
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
@@ -92,10 +91,9 @@ world.afterEvents.itemStopUse.subscribe(function (data){
         let layer2 = getScore(player, "2layer");
         let layer3 = getScore(player, "3layer");
         
-
+        if (layer1 === 0){return false;}
         let spell = [scroll, layer1, layer2, layer3];
         player.runCommandAsync(`title @s actionbar spell:${scroll}, layers:[${layer1}, ${layer2}, ${layer3}]`);
-        //world.sendMessage(JSON.stringify(spell));
         player.setDynamicProperty(`scroll-${scroll}`, JSON.stringify(spell));
     }
 
@@ -110,12 +108,21 @@ world.afterEvents.itemCompleteUse.subscribe(function (data){
     const player = data.source;
 
     if (item.typeId === "lumetas:scroll"){
-        let spell = player.getDynamicProperty(`scroll-${item.nameTag}`);
-        spell = JSON.parse(spell);
+        
+        let spell = JSON.parse(player.getDynamicProperty(`scroll-${item.nameTag}`));
+
+        let xp_base = 7;
+
+        let xp_to_cast = xp_base + Math.floor((spell[1] - 1) * 0.2 * xp_base);
+
+        if (player.getTotalXp() < xp_to_cast) {return false;}
+        let new_xp = player.getTotalXp() - xp_to_cast;
+        player.resetLevel();
+        player.addExperience(new_xp);
+
         setScore(player, "1layer", spell[1]);
         setScore(player, "2layer", spell[2]);
         setScore(player, "3layer", spell[3]);
-        player.setDynamicProperty(`scroll-${item.nameTag}`, '');
         player.runCommandAsync('function lumetas_spell_parser');
 
     }
