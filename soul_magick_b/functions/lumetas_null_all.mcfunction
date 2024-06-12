@@ -6,3 +6,8 @@ scoreboard players set @s 5layer 0
 scoreboard players set @s plusfunc 0
 scoreboard players set @s timer 0
 scoreboard players set @s itemtimer 0
+scoreboard players set @s lumetas_curse_damage 0
+scoreboard players set @s lumetas_curse_shield 0
+scoreboard players set @s lumetas_calc 0
+scoreboard players set @s lumetas_curse_shield_damage 0
+scoreboard players set @s lumetas_sneak 0
