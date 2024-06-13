@@ -1,7 +1,7 @@
 item.lumetas:soul_picker=Поглотитель душ
 item.spawn_egg.entity.lumetas:soul.name=Душа
 item.spawn_egg.entity.lumetas:redstone_soul.name=Душа редстоуна
-item.spawn_egg.entity.lumetas:soul_activator.name=Душный активатор
+item.spawn_egg.entity.lumetas:soul_activator.name=Переключить ПВП
 tile.lumetas:ender_obs.name=Обсидиан края
 entity.lumetas:redstone_soul.name=Душа редстоуна
 item.lumetas:bone_spear=Костянное копьё
