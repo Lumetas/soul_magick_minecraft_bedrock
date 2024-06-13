@@ -11,6 +11,7 @@ scoreboard objectives add lumetas_curse_shield dummy lumetas_curse_shield
 scoreboard objectives add lumetas_calc dummy lumetas_calc
 scoreboard objectives add lumetas_curse_shield_damage dummy lumetas_curse_shield_damage
 scoreboard objectives add lumetas_sneak dummy lumetas_sneak
+scoreboard objectives add lumetas_pvp dummy lumetas_pvp
 
 
 execute as @a at @s run function lumetas_null_all

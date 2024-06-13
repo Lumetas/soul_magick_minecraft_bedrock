@@ -11,3 +11,4 @@ scoreboard players set @s lumetas_curse_shield 0
 scoreboard players set @s lumetas_calc 0
 scoreboard players set @s lumetas_curse_shield_damage 0
 scoreboard players set @s lumetas_sneak 0
+scoreboard players set @s lumetas_pvp 0

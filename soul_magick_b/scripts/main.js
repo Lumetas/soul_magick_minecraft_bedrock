@@ -243,7 +243,9 @@ const Scroll = {
         setScore(player, "1layer", layer1);
         setScore(player, "2layer", layer2);
         setScore(player, "3layer", layer3);
+        if (getScore(player, "lumetas_pvp") === 1){player.runCommand(`tag @a[r=75] add lumetas_my_team`)}
         player.runCommand('function lumetas_spell_parser');
+        if (getScore(player, "lumetas_pvp") === 1){player.runCommand(`tag @a[r=75] remove lumetas_my_team`)}
         this.soul_particle(player);
         if (hand === "Offhand"){
             this.delete_scroll_left_hand(player);
