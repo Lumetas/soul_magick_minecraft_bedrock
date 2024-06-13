@@ -1,5 +1,8 @@
 import { world, system} from '@minecraft/server';
 //import { MinecraftItemTypes } from '@minecraft/vanilla-data';
+
+    
+
 function randomInteger(min, max) {
     // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
@@ -12,88 +15,87 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
     if (id !== "lumetas"){ return false;}
     let func = event.id.split(':')[1];
     let entity = event.sourceEntity;
+
+    switch (func) {
+        case "redstone_one":
+            if (entity.nameTag === ""){
+                entity.runCommandAsync('kill');
+            }
+            else {
+                entity.runCommand(`setblock ${entity.nameTag} redstone_block`);
+                entity.runCommandAsync('kill');
+            }
+            break;
+
+        case "mark1":
+            entity.runCommandAsync(`execute as @p at @s run scriptevent lumetas:mark2 ${entity.location.x} ${entity.location.y} ${entity.location.z}`)
+            break;
+
+        case "mark2":
+            entity.setDynamicProperty('lumetas_mark', event.message);
+            break;
+
+        case "mark3":
+            if (entity.getDynamicProperty('lumetas_mark') === undefined){return false;}   
+            entity.runCommandAsync(`tp @s ${entity.getDynamicProperty('lumetas_mark')}`);
+            break;
+
+        case "property":
+            property = event.message.split('=')[0];
+            propertyText = event.message.split('=')[1];
     
+            entity.setDynamicProperty(property, propertyText);
+            break;
 
-    if (func === "redstone_one"){
-        if (entity.nameTag === ""){
-            let redstone_id = `L${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}${randomInteger(0,9)}`
-            entity.runCommandAsync('tag @s add ' + redstone_id);
-            entity.runCommandAsync('tag @s add done');
-            entity.runCommandAsync('tell @p id этого блока: ' + redstone_id);
-        }
-        else {
-            entity.runCommandAsync(`setblock ${entity.nameTag} redstone_block`);
-            entity.runCommandAsync('kill');
-        }
-    }
+        case "curse_damage":
+            let damage = Math.round(getScore(entity, "lumetas_curse_damage") / 5);
+            if (damage > 0){
+                entity.runCommandAsync(`damage @s ${damage} void`);
+                setScore(entity, "lumetas_curse_damage", 0);
+            }
+            break;
 
-    if (func === "redstone_two"){
-        let name = entity.nameTag;
-        if (name === ""){return false;}
-        entity.runCommandAsync(`execute as @e[tag=${name}] at @s run function lumetas_redstone_hlop`);
-
-    }
-
-    if (func === "mark1"){
-        entity.runCommandAsync(`execute as @p at @s run scriptevent lumetas:mark2 ${entity.location.x} ${entity.location.y} ${entity.location.z}`)
-    }
-
-    if (func === "mark2"){
-
-        entity.setDynamicProperty('lumetas_mark', event.message);
-    }
-
-    if (func === "mark3"){
-        if (entity.getDynamicProperty('lumetas_mark') === undefined){return false;}   
-        entity.runCommandAsync(`tp @s ${entity.getDynamicProperty('lumetas_mark')}`);
-    }
-
-
-    if (func === "property"){
-        //world.sendMessage('p');
-        property = event.message.split('=')[0];
-        propertyText = event.message.split('=')[1];
-
-        entity.setDynamicProperty(property, propertyText);
-    }
-
-    if (func === "curse_damage"){
-        let damage = Math.round(getScore(entity, "lumetas_curse_damage") / 5);
-        if (damage > 0){
-            entity.runCommandAsync(`damage @s ${damage} void`);
-            setScore(entity, "lumetas_curse_damage", 0);
-        }
-    }
-
-    if (func === "get_curse_shield_damage"){
-        let curse_shield_counter = getScore(entity, "lumetas_curse_shield");
-        let curse_shield_damage = getScore(entity, "lumetas_curse_shield_damage");
-        if (Number(curse_shield_counter) === 0 && Number(curse_shield_damage) > 0){
-            setScore(entity, "lumetas_curse_shield_damage", 0);
-            entity.runCommand(`damage @s ${Math.round(Number(curse_shield_damage) / 2)} void`);
-        }
-    }
-
-    if (func === "use_scroll_with_left_hand"){
-        setScore(entity, "lumetas_sneak", 0);
-        use_spell_with_left_hand(entity);
-    }
-
-    if (func === "test_sneak"){
-        if (entity.isSneaking){
-            addScore(entity, "lumetas_sneak", 1);
+        case "get_curse_shield_damage":
+            let curse_shield_counter = getScore(entity, "lumetas_curse_shield");
+            let curse_shield_damage = getScore(entity, "lumetas_curse_shield_damage");
+            if (Number(curse_shield_counter) === 0 && Number(curse_shield_damage) > 0){
+                setScore(entity, "lumetas_curse_shield_damage", 0);
+                entity.runCommand(`damage @s ${Math.round(Number(curse_shield_damage) / 2)} void`);
+            }
+            break;
+            
+        case "use_scroll_with_left_hand":
+            setScore(entity, "lumetas_sneak", 0);
             const equip = entity.getComponent("minecraft:equippable");
             let slot = equip.getEquipmentSlot("Offhand");
             if (slot.typeId === "lumetas:scroll"){
-                    if ((45 - Number(getScore(entity, "lumetas_sneak"))) > 0){
-                        entity.runCommandAsync(`title @s actionbar §0 ${45 - Number(getScore(entity, "lumetas_sneak"))}`);
-                    }
+                Scroll.try_cast(entity);
             }
-        }
-        else {
-            setScore(entity, "lumetas_sneak", 0);
-        }
+            break;
+
+        case "test_sneak":
+            if (entity.isSneaking){
+                addScore(entity, "lumetas_sneak", 1);
+                const equip = entity.getComponent("minecraft:equippable");
+                let slot = equip.getEquipmentSlot("Offhand");
+                if (slot.typeId === "lumetas:scroll"){
+                        if ((45 - Number(getScore(entity, "lumetas_sneak"))) > 0){
+                            entity.runCommandAsync(`title @s actionbar §0 ${45 - Number(getScore(entity, "lumetas_sneak"))}`);
+                        }
+                }
+            }
+            else {
+                setScore(entity, "lumetas_sneak", 0);
+            }
+            break;
+            
+            
+
+        default:
+            break;
     }
+
+
 });
 
 
@@ -130,16 +132,7 @@ world.afterEvents.itemStopUse.subscribe(function (data){
     const player = data.source;
 
     if (item.typeId === "lumetas:scroll"){
-        player.runCommand(`function lumetas_scrolls/parser`);
-        let scroll = item.nameTag;
-        let layer1 = getScore(player, "1layer");
-        let layer2 = getScore(player, "2layer");
-        let layer3 = getScore(player, "3layer");
-        
-        if (layer1 === 0){return false;}
-        let spell = [scroll, layer1, layer2, layer3];
-        player.runCommandAsync(`title @s actionbar spell:${scroll}, layers:[${layer1}, ${layer2}, ${layer3}]`);
-        player.setDynamicProperty(`scroll-${scroll}`, JSON.stringify(spell));
+        Scroll.write(player);
     }
 
 
@@ -147,29 +140,11 @@ world.afterEvents.itemStopUse.subscribe(function (data){
 });
 
 world.afterEvents.itemCompleteUse.subscribe(function (data){
-    
-
     const item = data.itemStack;
     const player = data.source;
 
     if (item.typeId === "lumetas:scroll"){
-        
-        let spell = JSON.parse(player.getDynamicProperty(`scroll-${item.nameTag}`));
-
-        let xp_base = 7;
-
-        let xp_to_cast = xp_base + Math.floor((spell[1] - 1) * 0.2 * xp_base);
-
-        if (player.getTotalXp() < xp_to_cast) {return false;}
-        let new_xp = player.getTotalXp() - xp_to_cast;
-        player.resetLevel();
-        player.addExperience(new_xp);
-
-        setScore(player, "1layer", spell[1]);
-        setScore(player, "2layer", spell[2]);
-        setScore(player, "3layer", spell[3]);
-        player.runCommand('function lumetas_spell_parser');
-
+        Scroll.try_cast(player, item, "Mainhand");
     }
 });
 
@@ -184,50 +159,6 @@ function setScore(player, objective, score){
 function addScore(player, objective, score){
     try {world.scoreboard.getObjective(objective).addScore(player, score);}
     catch(e){player.runCommandAsync(`scoreboard players set @s ${objective} ${score}`)}
-}
-
-function delete_scroll_left_hand(entity){
-    const equip = entity.getComponent("minecraft:equippable");
-    let slot = equip.getEquipmentSlot("Offhand");
-    if (slot.typeId === "lumetas:scroll"){
-        if (slot.amount > 1){
-            slot.amount -= 1;
-        }
-        else{
-            equip.setEquipment("Offhand", null);
-        }
-    }
-}
-
-function use_spell_with_left_hand(player){
-    const equip = player.getComponent("minecraft:equippable");
-    let slot = equip.getEquipmentSlot("Offhand");
-
-
-    if (slot.typeId === "lumetas:scroll"){
-        
-        let spell = JSON.parse(player.getDynamicProperty(`scroll-${slot.nameTag}`));
-
-        let xp_base = 7;
-
-        let xp_to_cast = xp_base + Math.floor((spell[1] - 1) * 0.2 * xp_base);
-
-        if (player.getTotalXp() < xp_to_cast) {return false;}
-        let new_xp = player.getTotalXp() - xp_to_cast;
-        player.resetLevel();
-        player.addExperience(new_xp);
-
-        setScore(player, "1layer", spell[1]);
-        setScore(player, "2layer", spell[2]);
-        setScore(player, "3layer", spell[3]);
-        player.runCommand('function lumetas_spell_parser');
-
-    }
-
-
-
-    delete_scroll_left_hand(player);
-
 }
 
 world.afterEvents.entityHealthChanged.subscribe(function (data){
@@ -253,3 +184,113 @@ world.afterEvents.entityHealthChanged.subscribe(function (data){
     
 
 })
+
+
+
+const Scroll = {
+    spell : {
+        get_slot : function (player, hand, itemstack = false){//hand = string : Offhand, Mainhand
+            if (itemstack){
+                const equip = player.getComponent("minecraft:equippable");
+                let item = equip.getEquipment(hand);
+                return {equip : equip, item : item};
+            }
+            else {
+                const equip = player.getComponent("minecraft:equippable");
+                let slot = equip.getEquipmentSlot(hand);
+                return slot;
+            }
+        },
+
+        set : function (player, hand, array){//hand = string : Offhand, Mainhand
+            let slot = this.get_slot(player, hand, true);
+            slot.item.setLore([JSON.stringify(array)]);
+            
+            slot.equip.setEquipment(hand, slot.item);
+        },
+
+        get : function (player, hand){//hand = string : Offhand, Mainhand
+                let slot = this.get_slot(player, hand);
+                return JSON.parse(slot.getLore()[0]);
+        },
+        get_with_item(item){
+            return JSON.parse(item.getLore()[0]);
+        }
+    },
+
+    try_cast : function (player, item = null, hand = "Offhand"){
+        if (hand === "Offhand"){
+            let spell = this.spell.get(player, hand);
+            this.cast(player, spell[0], spell[1], spell[2], "Offhand");
+        }
+        if (hand === "Mainhand" && item !== null){
+            let spell = this.spell.get_with_item(item);
+            this.cast(player, spell[0], spell[1], spell[2]);
+        }
+    },
+
+    cast : function (player, layer1, layer2, layer3, hand = "Mainhand"){
+        if (player.runCommand(`testfor @e[type=lumetas:antimage, r=25]`).successCount > 0){return false;}
+        let xp_base = 7;
+
+        let xp_to_cast = xp_base + Math.floor((layer1 - 1) * 0.2 * xp_base);
+
+        if (player.getTotalXp() < xp_to_cast) {return false;}
+        let new_xp = player.getTotalXp() - xp_to_cast;
+        player.resetLevel();
+        player.addExperience(new_xp);
+
+        setScore(player, "1layer", layer1);
+        setScore(player, "2layer", layer2);
+        setScore(player, "3layer", layer3);
+        player.runCommand('function lumetas_spell_parser');
+        this.soul_particle(player);
+        if (hand === "Offhand"){
+            this.delete_scroll_left_hand(player);
+        }
+    },
+
+    write : function (player){
+        player.runCommand(`function lumetas_scrolls/parser`);
+        let layer1 = getScore(player, "1layer");
+        let layer2 = getScore(player, "2layer");
+        let layer3 = getScore(player, "3layer");
+        if (layer1 === 0){return false;}
+
+        let spell = [layer1, layer2, layer3];
+        player.runCommandAsync(`title @s actionbar layers:[${layer1}, ${layer2}, ${layer3}]`);
+        this.spell.set(player, "Mainhand", spell);
+    },
+
+    delete_scroll_left_hand : function (entity){
+        const equip = entity.getComponent("minecraft:equippable");
+        let slot = equip.getEquipmentSlot("Offhand");
+        if (slot.typeId === "lumetas:scroll"){
+            if (slot.amount > 1){
+                slot.amount -= 1;
+            }
+            else{
+                equip.setEquipment("Offhand", null);
+            }
+        }
+    },
+    soul_particle : function(player){
+        player.runCommand(`particle minecraft:soul_particle ~1 ~ ~1`);
+        player.runCommand(`particle minecraft:soul_particle ~1 ~ ~`);
+        player.runCommand(`particle minecraft:soul_particle ~1 ~ ~-1`);
+        player.runCommand(`particle minecraft:soul_particle ~ ~ ~-1`);
+        player.runCommand(`particle minecraft:soul_particle ~-1 ~ ~-1`);
+        player.runCommand(`particle minecraft:soul_particle ~-1 ~ ~`);
+        player.runCommand(`particle minecraft:soul_particle ~-1 ~ ~1`);
+        player.runCommand(`particle minecraft:soul_particle ~ ~ ~1`);
+        
+        player.runCommand(`particle minecraft:soul_particle ~1 ~1 ~1`);
+        player.runCommand(`particle minecraft:soul_particle ~1 ~1 ~`);
+        player.runCommand(`particle minecraft:soul_particle ~1 ~1 ~-1`);
+        player.runCommand(`particle minecraft:soul_particle ~ ~1 ~-1`);
+        player.runCommand(`particle minecraft:soul_particle ~-1 ~1 ~-1`);
+        player.runCommand(`particle minecraft:soul_particle ~-1 ~1 ~`);
+        player.runCommand(`particle minecraft:soul_particle ~-1 ~1 ~1`);
+        player.runCommand(`particle minecraft:soul_particle ~ ~1 ~1`);
+    }
+}

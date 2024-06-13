@@ -1,1 +1,1 @@
-execute at @e[r=25,tag=!caster,tag=!lumetas_emb] run summon evocation_fang
+execute at @e[r=25,tag=!caster,tag=!lumetas_emb, tag=!lumetas_my_team] run summon evocation_fang

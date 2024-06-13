@@ -1,1 +1,1 @@
-execute at @e[r=25,tag=!caster,tag=!lumetas_emb] run summon lightning_bolt
+execute at @e[r=25,tag=!caster,tag=!lumetas_emb, tag=!lumetas_my_team] run summon lightning_bolt

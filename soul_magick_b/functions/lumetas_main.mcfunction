@@ -17,3 +17,5 @@ execute as @a[scores={lumetas_curse_shield=0}] at @s run scriptevent lumetas:get
 execute as @a at @s run scriptevent lumetas:test_sneak
 
 execute as @a[scores={lumetas_sneak=45..}] at @s run scriptevent lumetas:use_scroll_with_left_hand
+
+execute as @e[type=lumetas:soul_activator] at @s run scriptevent lumetas:teamone
