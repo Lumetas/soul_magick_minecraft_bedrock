@@ -91,6 +91,20 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
             
             
 
+        case "give_spawn_egg_with_mob":
+            let type = entity.typeId;
+            entity.runCommand(`give @p[r=75] ${type}_spawn_egg`);
+            entity.runCommand(`kill`);
+            break;
+
+        case "set_entity_on_fire":
+            entity.setOnFire(10, true);
+            break;
+
+        case "unset_entity_on_fire":
+            entity.extinguishFire(true);
+            break;
+
         default:
             break;
     }

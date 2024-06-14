@@ -1,1 +1,2 @@
-fill ~-25 ~-5 ~-25 ~25 ~5 ~25 fire keep
+execute if entity @s[scores={2layer=1}] run execute as @e[tag=!caster, tag=!lumetas_emb, tag=!lumetas_my_team, r=25] at @s run scriptevent lumetas:set_entity_on_fire
+execute if entity @s[scores={2layer=2}] run scriptevent lumetas:unset_entity_on_fire
