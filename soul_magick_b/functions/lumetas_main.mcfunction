@@ -21,3 +21,6 @@ execute as @a[scores={lumetas_sneak=45..}] at @s run scriptevent lumetas:use_scr
 execute as @a at @s run execute unless entity @s[scores={lumetas_pvp=0}] unless entity @s[scores={lumetas_pvp=1}] run scoreboard players set @s lumetas_pvp 0
 execute as @e[type=lumetas:soul_activator] at @s run execute as @p at @s run function lumetas_toggle_pvp
 kill @e[type=lumetas:soul_activator]
+
+execute as @a[scores={lumetas_antihungry=1..}] at @s run effect @s saturation 1 0 true
+execute as @a[scores={lumetas_antihungry=1..}] at @s run scoreboard players add @s lumetas_antihungry -20
